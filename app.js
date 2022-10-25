@@ -63,6 +63,22 @@ app.route("/articles")
 
 /////////////////////////////////////////////// Requests Targetting Specific ///////////////////////////////
 
+app.route("/articles/:articleTitle")
+.get(function(req,res){
+    Article.findOne({title: req.params.articleTitle}, function(err, foundArticle){
+        if(foundArticle){
+            res.send(foundArticle);
+        } else {
+            res.send("No article macthing that title");
+        }
+    });
+})
+.put(function(req, res){
+    Article.update(
+        {title: req.params.articleTitle},
+        {title: req.body.title, content: req.body.content}
+    )
+})
 
 //TODO
 
